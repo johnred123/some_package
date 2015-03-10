@@ -65,6 +65,7 @@ int io_getArrayFormString(const char *buf, int lenArray, void *array_buf)
 void io_printfarray(const unsigned char *array, int len)
 {
     int loop = 0;
+    if(len <= 0)return;
     for(loop = 0; loop < len; loop++){
         if(loop%16 == 0 && loop != 0)
             fprintf(stderr,"\n");

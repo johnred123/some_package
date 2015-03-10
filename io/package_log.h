@@ -38,7 +38,7 @@ extern FILE *logfile;
         case PACKAGE_LOG_MSG:   s = "msg";   break;\
         case PACKAGE_LOG_WARN:  s = "warn";  break;\
         case PACKAGE_LOG_ERR:   s = "error"; break;\
-        default:               s = "?";     break; /* never reached */\
+        default:                s = "?";     break; /* never reached */\
     }\
     fprintf(logfile, "[%s]"fmt"\n", s, ##arg);\
 }while(0)
