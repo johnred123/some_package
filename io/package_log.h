@@ -13,24 +13,34 @@
     Modification: Created file
 
 ******************************************************************************/
-#ifndef _LOG_H_
-#define _LOG_H_
+#ifndef _PACKAGE_LOG_H_
+#define _PACKAGE_LOG_H_
+
+#include <stdio.h>
+#include <stdlib.h>
 
 #include "config.h"
 
-#define EVENT_LOG_DEBUG 0
-#define EVENT_LOG_MSG   1
-#define EVENT_LOG_WARN  2
-#define EVENT_LOG_ERR   3
+#define PACKAGE_LOG_DEBUG 0
+#define PACKAGE_LOG_MSG   1
+#define PACKAGE_LOG_WARN  2
+#define PACKAGE_LOG_ERR   3
 
-/* Deprecated; see note at the end of this section */
-#define _EVENT_LOG_DEBUG EVENT_LOG_DEBUG
-#define _EVENT_LOG_MSG   EVENT_LOG_MSG
-#define _EVENT_LOG_WARN  EVENT_LOG_WARN
-#define _EVENT_LOG_ERR   EVENT_LOG_ERR
+extern FILE *logfile;
 
-typedef void (*event_log_cb)(int severity, const char *msg);
+#define log_func(severity,fmt,arg...)\
+{\
+    const char *s;\
+    if (!logfile)\
+        return;\
+    switch ((severity)){\
+        case PACKAGE_LOG_DEBUG: s = "debug"; break;\
+        case PACKAGE_LOG_MSG:   s = "msg";   break;\
+        case PACKAGE_LOG_WARN:  s = "warn";  break;\
+        case PACKAGE_LOG_ERR:   s = "error"; break;\
+        default:               s = "?";     break; /* never reached */\
+    }\
+    fprintf(logfile, "[%s]"fmt"\n", s, ##arg);\
+}while(0)
 
-void event_set_log_callback(event_log_cb cb);
-
-#endif /* _LOG_H_ */
+#endif /* _PACKAGE_LOG_H_ */
