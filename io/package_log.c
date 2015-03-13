@@ -19,10 +19,10 @@
 ******************************************************************************/
 #include "package_log.h"
 
-FILE *logfile = NULL;
+FILE *package_logfile = NULL;
 
 void set_logfile(FILE *logfp)
 {
-    logfile = logfp;
+    package_logfile = logfp;
 }
 

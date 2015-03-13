@@ -19,19 +19,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "config.h"
+//#include "config.h"
 
 #define PACKAGE_LOG_DEBUG 0
 #define PACKAGE_LOG_MSG   1
 #define PACKAGE_LOG_WARN  2
 #define PACKAGE_LOG_ERR   3
 
-extern FILE *logfile;
+extern FILE *package_logfile;
 
 #define log_func(severity,fmt,arg...)\
 {\
     const char *s;\
-    if (!logfile)\
+    if (!package_logfile)\
         return;\
     switch ((severity)){\
         case PACKAGE_LOG_DEBUG: s = "debug"; break;\
@@ -40,7 +40,7 @@ extern FILE *logfile;
         case PACKAGE_LOG_ERR:   s = "error"; break;\
         default:                s = "?";     break; /* never reached */\
     }\
-    fprintf(logfile, "[%s]"fmt"\n", s, ##arg);\
+    fprintf(package_logfile, "[%s]"fmt"\n", s, ##arg);\
 }while(0)
 
 #endif /* _PACKAGE_LOG_H_ */
