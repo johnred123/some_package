@@ -19,8 +19,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-//#include "config.h"
-
 #define PACKAGE_LOG_DEBUG 0
 #define PACKAGE_LOG_MSG   1
 #define PACKAGE_LOG_WARN  2
@@ -28,7 +26,7 @@
 
 extern FILE *package_logfile;
 
-#define log_func(severity,fmt,arg...)\
+#define package_log_func(severity,fmt,arg...)\
 {\
     const char *s;\
     if (!package_logfile)\
@@ -42,5 +40,7 @@ extern FILE *package_logfile;
     }\
     fprintf(package_logfile, "[%s]"fmt"\n", s, ##arg);\
 }while(0)
+
+void package_log_init(FILE *logfp);
 
 #endif /* _PACKAGE_LOG_H_ */

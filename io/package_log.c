@@ -8,7 +8,7 @@
   Description   : log api
   Function List :
               package_log_noting
-              set_logfile
+              package_log_init
               suppress_logging
               package_log_func
   History       :
@@ -21,7 +21,7 @@
 
 FILE *package_logfile = NULL;
 
-void set_logfile(FILE *logfp)
+void package_log_init(FILE *logfp)
 {
     package_logfile = logfp;
 }

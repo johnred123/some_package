@@ -17,6 +17,8 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "package_log.h"
+
 /*
  * Prototype    : io_getArrayFormString
  * Description  : Get a array from string
@@ -66,12 +68,14 @@ void io_printfarray(const unsigned char *array, int len)
 {
     int loop = 0;
     if(len <= 0)return;
+    if(package_logfile == NULL)
+        package_log_init(stderr);
     for(loop = 0; loop < len; loop++){
         if(loop%16 == 0 && loop != 0)
-            fprintf(stderr,"\n");
-        fprintf(stderr,"%02X ",array[loop]);
+            fprintf(package_logfile,"\n");
+        fprintf(package_logfile,"%02X ",array[loop]);
     }
-    fprintf(stderr, "\n");
+    fprintf(package_logfile, "\n");
 }
 
 /*
