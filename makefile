@@ -14,14 +14,16 @@ objs += ./application/HashTable.o
 objs += ./application/crc32.o
 objs += ./application/utf8-to-unicode.o
 objs += ./application/sha-1.o
-objs += ./io/package_cfg/cfg.o
 objs += ./io/package_io.o
 objs += ./io/package_log.o
 objs += ./malloc/mem_malloc.o
 objs += ./thread/package_thread.o
 objs += ./socket/package_socket.o
 
-all:dynamic_lib
+all:dynamic_lib static_lib
+
+static_lib:${objs}
+	${AR} rcs ${static_lib_name} $^
 
 dynamic_lib:${objs}
 	${CC} ${CFLAG} -fPIC -shared -o ${dynamic_lib_name} $^
