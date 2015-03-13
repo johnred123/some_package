@@ -38,6 +38,6 @@ unsigned short int get_crc16(unsigned char *buffer, unsigned int size, int init_
     static int crc = 0;
     if(init_flag == 1)
         crc = 0;
-    crc = crc32(crc, buffer, size);
+    crc = crc32(crc, (char*)buffer, size);
     return (unsigned short int)(0xffff&crc);
 }

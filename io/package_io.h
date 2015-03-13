@@ -15,8 +15,10 @@
 #ifndef _PACKAGE_IO_H_
 #define _PACKAGE_IO_H_
 
-int io_getArrayFormString(const char *buf, unsigned char lenArray, void*array_buf);
-int io_flipArray(char *buf, int lenArray);
+#include "package_log.h"
+
+int io_getArrayFormString(const char *buf, int lenArray, void*array_buf);
+int io_flipArray(unsigned char *buf, int lenArray);
 void io_printfarray(const unsigned char *array, int len);
 
 #endif /* _PACKAGE_IO_H_ */

@@ -17,7 +17,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "package_log.h"
+#include "package_io.h"
 
 /*
  * Prototype    : io_getArrayFormString
@@ -81,7 +81,7 @@ void io_printfarray(const unsigned char *array, int len)
 /*
  * Prototype    : io_flipArray
  * Description  : flipped over a array
- * Input        : const char *buf
+ * Input        : char *buf
  *                unsigned char lenArray
  * Output       : None
  * Return Value : int
@@ -93,7 +93,7 @@ void io_printfarray(const unsigned char *array, int len)
  *    Author       : john kazmath (johnred123@github)
  *    Modification : Created function
  */
-int io_flipArray(char *buf, int lenArray)
+int io_flipArray(unsigned char *buf, int lenArray)
 {
     int loop = 0;
     if(buf == NULL)

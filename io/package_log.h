@@ -30,7 +30,7 @@ extern FILE *package_logfile;
 {\
     const char *s;\
     if (!package_logfile)\
-        return;\
+        return -1;\
     switch ((severity)){\
         case PACKAGE_LOG_DEBUG: s = "debug"; break;\
         case PACKAGE_LOG_MSG:   s = "msg";   break;\
