@@ -5,7 +5,9 @@
   Author        : john kazmath (johnred123@github)
   Created       : 
   Last Modified :
-  Function List :
+  Function List : package_pthread_init
+                  package_pthread_suspend
+                  package_pthread_resume
   History       :
   1.Date        : 
     Author      : john kazmath (johnred123@github)
