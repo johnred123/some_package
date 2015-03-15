@@ -5,8 +5,8 @@
 
 CC := ${CROSS_COMPILE}gcc
 AR := ${CROSS_COMPILE}ar
-CFLAG := -O2 -Wall
-CFLAGS := -fPIC
+CFLAG :=
+CFLAGS := -fPIC -Wall -O2
 
 static_lib_name := libspackage.a
 dynamic_lib_name := libspackage.so
@@ -28,8 +28,6 @@ static_lib:${objs}
 
 dynamic_lib:${objs}
 	${CC} ${CFLAG} -fPIC -shared -o ${dynamic_lib_name} $^
-#.c.o:
-#	${CC} -c -fPIC -shared -o $@ $^
 
 ./io/package_io.o ./io/package_log.o : ./io/package_io.h ./io/package_log.h
 ./application/HashTable.o : ./application/HashTable.h
@@ -38,6 +36,7 @@ dynamic_lib:${objs}
 ./malloc/mem_malloc.o : ./malloc/mem_malloc.h
 ./socket/package_socket.o : ./socket/package_socket.h
 ./application/sha-1.o : ./application/sha-1.h
+./thread/package_thread.o : ./thread/package_thread.h
 
 clean:
 	rm -f ${dynamic_lib_name} ${static_lib_name}
