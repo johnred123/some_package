@@ -17,6 +17,9 @@
 #ifndef _PACKAGE_THREAD_H_
 #define _PACKAGE_THREAD_H_
 
+#include <unistd.h>
+#include <pthread.h>
+
 void package_pthread_init(void);
 void package_pthread_suspend(void);
 void package_pthread_resume(void);

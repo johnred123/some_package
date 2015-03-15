@@ -17,8 +17,7 @@
 #ifndef _CRC32_H_
 #define _CRC32_H_
 
-#include <zlib.h>
-
+unsigned long crc32(unsigned long crc, const unsigned char *buf, unsigned int len);
 unsigned short int get_crc16(unsigned char *buffer, unsigned int size, int init_flag);
 
 #endif /* _CRC32_H_ */
