@@ -33,8 +33,6 @@ NOTE:   String length must be evenly divisible by 16byte (str_len % 16 == 0)
 /*****************************************************************************/
 /* Includes:                                                                 */
 /*****************************************************************************/
-#include <stdint.h>
-#include <string.h> // CBC mode, for memset
 #include "aes.h"
 
 
@@ -443,13 +441,10 @@ static void BlockCopy(uint8_t* output, uint8_t* input)
   }
 }
 
-
-
 /*****************************************************************************/
 /* Public functions:                                                         */
 /*****************************************************************************/
 #if defined(ECB) && ECB
-
 
 void AES128_ECB_encrypt(uint8_t* input, const uint8_t* key, uint8_t* output)
 {
@@ -477,15 +472,11 @@ void AES128_ECB_decrypt(uint8_t* input, const uint8_t* key, uint8_t *output)
   InvCipher();
 }
 
-
 #endif // #if defined(ECB) && ECB
 
 
 
-
-
 #if defined(CBC) && CBC
-
 
 static void XorWithIv(uint8_t* buf)
 {
@@ -577,7 +568,5 @@ void AES128_CBC_decrypt_buffer(uint8_t* output, uint8_t* input, uint32_t length,
   }
 }
 
-
 #endif // #if defined(CBC) && CBC
-
 
