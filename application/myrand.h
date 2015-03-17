@@ -18,7 +18,6 @@
 #ifndef _MYRAND_H_
 #define _MYRAND_H_
 
-int myrand(void);
-void mysrand(unsigned seed);
+void time_rand(int *buf, int num);
 
 #endif /* end if for _MYRAND_H_ */

@@ -16,15 +16,24 @@
 
 ******************************************************************************/
 
-static unsigned long next = 1;
-/* RAND_MAX assumed to be 32767 */
-int myrand(void)
-{
-    next = next * 1103515245 + 12345;
-    return((unsigned)(next/65536) % 32768);
-}
+#include <time.h>
+#include <stdlib.h>
 
-void mysrand(unsigned seed)
+/*
+ * Prototype    : time_rand
+ * Description  : creat random number type of int by number
+ * Input        : int *buf  
+ *                int num   
+ * Output       : None
+ * Return Value : 
+ */
+void time_rand(int *buf, int num)
 {
-    next = seed;
+    if(buf == NULL)return ;
+    srand((unsigned int)time(NULL));
+    for(; num >= 0; num --)
+    {
+        ((int *)buf)[num] = rand();
+    }
+    return ;
 }
