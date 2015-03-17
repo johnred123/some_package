@@ -15,7 +15,6 @@
 
 #include "package_socket.h"
 
-
 /*
  * Prototype    : creat_block_tcp_ipv4_socket
  * Description  : creat a tcp socket within block

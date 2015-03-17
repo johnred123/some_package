@@ -13,6 +13,7 @@ dynamic_lib_name := libspackage.so
 
 objs += ./application/HashTable.o
 objs += ./application/crc32.o
+objs += ./application/aes.o
 objs += ./application/utf8-to-unicode.o
 objs += ./application/sha-1.o
 objs += ./io/package_io.o
@@ -32,6 +33,7 @@ dynamic_lib:${objs}
 ./io/package_io.o ./io/package_log.o : ./io/package_io.h ./io/package_log.h
 ./application/HashTable.o : ./application/HashTable.h
 ./application/crc32.o : ./application/crc32.h
+./application/aes.o : ./application/aes.h
 ./application/utf8-to-unicode.o : ./application/utf8-to-unicode.h
 ./malloc/mem_malloc.o : ./malloc/mem_malloc.h
 ./socket/package_socket.o : ./socket/package_socket.h
