@@ -23,5 +23,6 @@
 void package_pthread_init(void);
 void package_pthread_suspend(void);
 void package_pthread_resume(void);
+void package_pthread_wait(pthread_mutex_t *mutex, pthread_cond_t *cond, void *flag);
 
 #endif /* endif for file package_thread.h */

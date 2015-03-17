@@ -15,7 +15,6 @@
 
 #include "package_socket.h"
 
-
 /*
  * Prototype    : creat_block_tcp_ipv4_socket
  * Description  : creat a tcp socket within block
@@ -53,4 +52,37 @@ int creat_block_tcp_ipv4_socket(g_servers_options_t *p_sopt)
     
     return connect(p_sopt->sockets, (struct sockaddr*)&serverAddr, sizeof(serverAddr));
 }
+
+int package_send(int socket, char *buf, int len)
+{
+    int ret = 0;
+    
+    if(buf == NULL)return -1;
+    
+    ret = send(socket, buf, len, 0);
+    if(ret < 0  && errno == EAGAIN)
+    {
+        fprintf(stderr, "[%s]%s\n", "error", "Send timeout");
+        return -1;
+    }
+    return ret;
+}
+
+int package_read(int socket, char *buf, int len)
+{
+    int ret = 0;
+    
+    if(buf == NULL)return -1;
+    
+    memset(buf, 0x00, len);
+
+    ret = recv(socket, buf, len, 0);
+    if(ret < 0  && errno == EAGAIN)
+    {
+        fprintf(stderr, "[%s]%s\n", "error", "Read timeout");
+        return -1;
+    }
+    return ret;
+}
+
 

@@ -39,7 +39,7 @@ char Hex210(unsigned char ucData, char *cpBuffer)
     if(NULL == cpBuffer)
         return -1;
     sprintf(cpBuffer, "%d", ucData);
-    return ;
+    return 0;
 }
 
 /*
@@ -62,45 +62,7 @@ char Hex2String( unsigned char ucData , char * cpBuffer )
     if(NULL == cpBuffer)
         return -1;
     sprintf(cpBuffer, "%02X", ucData);
-    return ;
-}
-
-/*
- * Function Name: ExchgPhone()
- * Description:   交换电话号码的位置使之符合USD2标准
- * Argument:      char *cpPhoneNum ----- Phone numbers
- * 				  char *cpBuffer ----- A buffer to save exchanged phone number
- */
-char ExchgPhone( char *cpPhoneNum , char * cpBuffer )
-{
-    char cTempBuffer[ 13 ] = { 0 } ;
-    char cStartNum = 0 , cBufPos = 0 ;
-    if( strlen( cpPhoneNum ) == 11 )
-    {
-        /* Phone Format: "135xxxxxxxx" */
-        cStartNum = 0 ;
-    }
-    else
-        if( strlen( cpPhoneNum ) == 14 )
-        {
-            /* Phone Format: "+86135xxxxxxxx" */
-            cStartNum = 3 ;
-        }
-        else
-        {
-            /* input phone number has some errors */
-            return 0 ;
-        }
-    while( cBufPos < strlen( cpPhoneNum ) )
-    {
-        /* Exchangging... */
-        cTempBuffer[ cBufPos + 1 ] = cpPhoneNum[ cStartNum ++ ] ;
-        cTempBuffer[ cBufPos ] = cpPhoneNum[ cStartNum ++ ] ;
-        cBufPos += 2 ;
-    }
-    cTempBuffer[ 10 ] = 'F' ;
-    strcat( cpBuffer , cTempBuffer ) ;
-    return 1 ;
+    return 0;
 }
 
 /*
@@ -178,7 +140,7 @@ void utf8_to_unicode( unsigned char *cpInput , int Len )
                     else
                     {
                         /* -----  If is a 4 Bype code  ----- */
-                        if ( ( ( *savetmp ) & 0xF0 == 0xF0 ) )
+                        if ( ( ( *savetmp ) & 0xF0) == 0xF0  )
                         {
                             iBufPos += 3 ;
                             savetmp += 4 ;

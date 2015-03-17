@@ -47,6 +47,7 @@ int io_getArrayFormString(const char *buf, int lenArray, void *array_buf)
         sscanf(buf+(lenArray*2), "%02x", &temp_val);
         ((unsigned char*)array_buf)[lenArray] = (unsigned char)temp_val;
     }
+    return 0;
 }
 
 /*

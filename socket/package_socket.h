@@ -19,9 +19,11 @@
 
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <arpa/inet.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <errno.h>
 
 typedef struct g_servers_options
 {
@@ -31,5 +33,7 @@ typedef struct g_servers_options
 } g_servers_options_t;
 
 int creat_block_tcp_ipv4_socket(g_servers_options_t *p_sopt);
+int package_send(int socket, char *buf, int len);
+int package_read(int socket, char *buf, int len);
 
 #endif
