@@ -40,6 +40,6 @@ dynamic_lib:${objs}
 
 clean:
 	rm -f ${dynamic_lib_name} ${static_lib_name}
-	rm -f `find ./ -name "*.o"`
+	rm -f ${objs}
 
 .PHONY:clean
