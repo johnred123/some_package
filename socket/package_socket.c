@@ -59,8 +59,6 @@ int package_send(int socket, char *buf, int len)
     
     if(buf == NULL)return -1;
     
-    memset(buf, 0x00, len);
-
     ret = send(socket, buf, len, 0);
     if(ret < 0  && errno == EAGAIN)
     {
@@ -69,7 +67,6 @@ int package_send(int socket, char *buf, int len)
     }
     return ret;
 }
-
 
 int package_read(int socket, char *buf, int len)
 {
