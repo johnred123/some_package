@@ -26,6 +26,12 @@
 
 extern FILE *package_logfile;
 
+typedef struct g_log_file_info
+{
+    char *file_path;
+    FILE *fp;
+} g_log_file_info_t;
+
 #define package_log_func(severity,fmt,arg...)\
 {\
     const char *s;\
