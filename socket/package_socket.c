@@ -36,10 +36,13 @@ int creat_block_tcp_ipv4_socket(g_servers_options_t *p_sopt)
     if(p_sopt == NULL)
         return -1;
     p_sopt->sockets = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+    
     if(p_sopt->sockets < 0)
         return -1;
-    
-    timeo.tv_sec = defulat_socket_timeout;
+    if(p_sopt->timeout == 0)
+        timeo.tv_sec = defulat_socket_timeout;
+    else
+        timeo.tv_sec = p_sopt->timeout;
     serverAddr.sin_family = AF_INET;
     serverAddr.sin_port = htons(p_sopt->port);
     serverAddr.sin_addr.s_addr = inet_addr(p_sopt->ipaddrs);

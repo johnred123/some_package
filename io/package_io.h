@@ -20,5 +20,7 @@
 int io_getArrayFormString(const char *buf, int lenArray, void*array_buf);
 int io_flipArray(unsigned char *buf, int lenArray);
 void io_printfarray(const unsigned char *array, int len);
+int io_getfilesize(FILE *fp);
+void *io_copyfiletoram(FILE *fp);
 
 #endif /* _PACKAGE_IO_H_ */

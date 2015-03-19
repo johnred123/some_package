@@ -30,6 +30,7 @@ typedef struct g_servers_options
     int sockets;
     int port;
     char *ipaddrs;
+    int timeout;
 } g_servers_options_t;
 
 int creat_block_tcp_ipv4_socket(g_servers_options_t *p_sopt);

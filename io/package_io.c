@@ -110,3 +110,70 @@ int io_flipArray(unsigned char *buf, int lenArray)
     free(tempbuf);
     return 0;
 }
+
+/*
+ * Prototype    : io_getfilesize
+ * Description  : get size of a file
+ * Input        : FILE *fp
+ * Output       : None
+ * Return Value : int
+ * Calls        : 
+ * Called By    : 
+ * 
+ * History        :
+ * 1.Date         : 
+ *    Author       : john kazmath (johnred123@github)
+ *    Modification : Created function
+ */
+int io_getfilesize(FILE *fp)
+{
+    int file_len = 0;
+    fpos_t pos_backup = {0};
+    if(fgetpos(fp, &pos_backup))
+        return -1;
+    if(fseek(fp, 0, SEEK_END))
+        return -1;
+    file_len = ftell(fp);
+    if(fsetpos(fp, &pos_backup))
+        return -1;
+    return file_len;
+}
+
+/*
+ * Prototype    : io_copyfiletoram
+ * Description  : copy all of the file to the buffer
+ *                Need fopen within "rb" mode.
+ * Input        : char *path
+ * Output       : None
+ * Return Value : void *, a pointer to point new-buffer for the file
+ * Calls        : 
+ * Called By    : 
+ * 
+ * History        :
+ * 1.Date         : 
+ *    Author       : john kazmath (johnred123@github)
+ *    Modification : Created function
+ */
+void *io_copyfiletoram(FILE *fp)
+{
+    long length;
+    unsigned char *buffer;
+    size_t result;
+    
+    length = io_getfilesize(fp);
+    rewind (fp);
+
+    buffer = (unsigned char *)calloc(1, length);
+    if (buffer == NULL)
+    {
+        return NULL;
+    }
+    result = fread(buffer, 1, length, fp);
+    if (result != length)
+    {
+        free(buffer);
+        return NULL;
+    }
+    return buffer;
+}
+
