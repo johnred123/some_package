@@ -36,8 +36,8 @@
  */
 char Hex210(unsigned char ucData, char *cpBuffer)
 {
-    if(NULL == cpBuffer)
-        return -1;
+    if(NULL == cpBuffer)return -1;
+
     sprintf(cpBuffer, "%d", ucData);
     return 0;
 }
@@ -58,16 +58,16 @@ char Hex210(unsigned char ucData, char *cpBuffer)
  *    Modification : Created function
  */
 char Hex2String( unsigned char ucData , char * cpBuffer )
-{
-    if(NULL == cpBuffer)
-        return -1;
+{  
+    if(NULL == cpBuffer)return -1;
+
     sprintf(cpBuffer, "%02X", ucData);
     return 0;
 }
 
 /*
  * Function Name: utf8_to_unicode()
- * Description:   将网页UTF-8编码数据转变为短信编码
+ * Description:   
  * Argument:	  char *cpPhoneNum ----- Phone numbers
  *				  char *cpBuffer ----- A buffer to save exchanged phone number
  *				  char *cpText ---- Text will be sended
@@ -80,30 +80,23 @@ void utf8_to_unicode( unsigned char *cpInput , int Len )
     unsigned char *tmp = NULL;
 
     tmp = (unsigned char *)mem_malloc(max_buffer_size);
-    if(NULL == tmp)
-    {
+    if(NULL == tmp){
         return;
     }
     memset(tmp, 0, max_buffer_size);
     savetmp = cpInput ; 
-    for ( iBufPos = 0; (iBufPos <= Len) && (iBufPos <= max_buffer_size); iBufPos ++)
-    {
-        if( *savetmp != 0x00 )
-        {
+    for ( iBufPos = 0; (iBufPos <= Len) && (iBufPos <= max_buffer_size); iBufPos ++){
+        if( *savetmp != 0x00 ){
             /* ----- if a ASCII code ----- */
-            if ( *savetmp > 0x00 && *savetmp <= 0x7F )
-            {
+            if ( *savetmp > 0x00 && *savetmp <= 0x7F ){
                 *(tmp + offset + 1) = *savetmp;
                 *(tmp + offset ) = 0;
                 savetmp ++;
                 offset += 2 ;
                 continue;
-            }
-            else
-            {
+            }else{
                 /* ----- If is double bype code ----- */
-                if ( ((*savetmp) & 0xE0) == 0xC0 )
-                {
+                if ( ((*savetmp) & 0xE0) == 0xC0 ){
                     char temp1 = 0x00;
                     char temp2 = 0x00;
                     temp1 = * ( savetmp + 1 ) & 0x3F ;
@@ -117,12 +110,9 @@ void utf8_to_unicode( unsigned char *cpInput , int Len )
                     iBufPos ++ ;
                     offset +=2 ;
                     continue;
-                }
-                else
-                {
+                }else{
                     /* -----  If is a 3 bype code  ----- */
-                    if ( ((*savetmp) & 0xF0) == 0xE0 )
-                    {
+                    if ( ((*savetmp) & 0xF0) == 0xE0 ){
                         char temp1 = 0x00;
                         char temp2 = 0x00;
                         temp1 = *( savetmp + 2 ) & 0x3F ;
@@ -136,12 +126,9 @@ void utf8_to_unicode( unsigned char *cpInput , int Len )
                         iBufPos += 2 ;
                         offset += 2 ;
                         continue;
-                    }
-                    else
-                    {
+                    }else{
                         /* -----  If is a 4 Bype code  ----- */
-                        if ( ( ( *savetmp ) & 0xF0) == 0xF0  )
-                        {
+                        if ( ( ( *savetmp ) & 0xF0) == 0xF0  ){
                             iBufPos += 3 ;
                             savetmp += 4 ;
                             offset += 2 ;

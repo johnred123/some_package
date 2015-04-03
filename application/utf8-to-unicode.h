@@ -34,6 +34,7 @@
 #define IS_AF(c)  ((c >= 'A') && (c <= 'F'))
 #define IS_af(c)  ((c >= 'a') && (c <= 'f'))
 #define IS_09(c)  ((c >= '0') && (c <= '9'))
+
 #define ISVALIDHEX(c)  IS_AF(c) || IS_af(c) || IS_09(c)
 #define ISVALIDDEC(c)  IS_09(c)
 #define CONVERTDEC(c)  (c - '0')

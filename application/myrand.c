@@ -31,8 +31,7 @@ void time_rand(int *buf, int num)
 {
     if(buf == NULL)return ;
     srand((unsigned int)time(NULL));
-    for(; num >= 0; num --)
-    {
+    for(; num >= 0; num --){
         ((int *)buf)[num] = rand();
     }
     return ;
