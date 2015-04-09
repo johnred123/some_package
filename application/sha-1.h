@@ -17,7 +17,6 @@
 #define _SHA_1_H_
 
 void mk_sha1(unsigned char *Data, int length, unsigned char* sha1_val);
-void mk_sha1_512(unsigned char *Data, int length, unsigned char* sha1_val);
 void hmac_sha1(unsigned char *key,int key_length,unsigned char *data,int data_length,unsigned char *digest);
 
 #endif /* _SHA_1_H_ */

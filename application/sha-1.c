@@ -309,17 +309,6 @@ void mk_sha1(unsigned char *Data, int length, unsigned char* sha1_val)
     memcpy(sha1_val, ctx.buf, 20);
 }
 
-void mk_sha1_512(unsigned char *Data, int length, unsigned char* sha1_val)
-{
-    SHA1_CONTEXT ctx;
-
-    sha1_init (&ctx);
-    sha1_write (&ctx, Data, length);
-    sha1_final (&ctx);
-
-    memcpy(sha1_val, ctx.buf, sizeof(ctx.buf));
-}
-
 #define MAX_MESSAGE_LENGTH 128
 
 void hmac_sha1(unsigned char *key,int key_length,unsigned char *data,int data_length,unsigned char *digest)
@@ -402,48 +391,3 @@ void hmac_sha1(unsigned char *key,int key_length,unsigned char *data,int data_le
     /* Step 9 */  
     mk_sha1(step8data, b+20, digest);  
 }  
-
-#if 0
-/* test main */
-int main (int argc, char **argv)  
-{  
-    assert (sizeof (u32) == 4);  
-  
-    if (argc < 2)  
-    {  
-        fprintf (stderr, "usage: sha1sum filenames\n");  
-        exit (1);  
-    }  
-    for (argc--, argv++; argc; argv++, argc--)  
-    {  
-        FILE *fp;  
-        char buffer[4096];  
-        size_t n;  
-        SHA1_CONTEXT ctx;  
-        int i;  
-        
-        fp = fopen (*argv, "rb");  
-        if (!fp)  
-        {  
-            fprintf (stderr, "can't open `%s': %s\n", *argv, strerror (errno));  
-            exit (1);  
-        }  
-        sha1_init (&ctx);  
-        while ( (n = fread (buffer, 1, sizeof buffer, fp)))  
-            sha1_write (&ctx, buffer, n);  
-        if (ferror (fp))  
-        {  
-            fprintf (stderr, "error reading `%s': %s\n", *argv,strerror (errno));  
-            exit (1);  
-        }  
-        sha1_final (&ctx);  
-        fclose (fp);  
-        
-        for (i=0; i < 20; i++)  
-            printf ("%02x", ctx.buf[i]);  
-        printf ("  %s\n", *argv);  
-    }  
-    return 0;  
-}
-#endif
-
