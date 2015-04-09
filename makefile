@@ -4,7 +4,7 @@
 CC := ${CROSS_COMPILE}gcc
 AR := ${CROSS_COMPILE}ar
 CFLAG :=
-CFLAGS := -fPIC -Wall -O2
+CFLAGS := -fPIC -Wall -O2 -pipe
 
 static_lib_name := libspackage.a
 dynamic_lib_name := libspackage.so
