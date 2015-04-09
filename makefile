@@ -1,5 +1,3 @@
-#
-#	File Name: makefile
 #	Description: 
 #
 
@@ -17,6 +15,7 @@ objs += ./application/aes.o
 objs += ./application/myrand.o
 objs += ./application/utf8-to-unicode.o
 objs += ./application/sha-1.o
+objs += ./application/sha2.o
 objs += ./io/package_io.o
 objs += ./io/package_log.o
 objs += ./malloc/mem_malloc.o
@@ -40,6 +39,7 @@ dynamic_lib:${objs}
 ./malloc/mem_malloc.o : ./malloc/mem_malloc.h
 ./socket/package_socket.o : ./socket/package_socket.h
 ./application/sha-1.o : ./application/sha-1.h
+./application/sha2.o : ./application/sha2.h
 ./thread/package_thread.o : ./thread/package_thread.h
 
 clean:
