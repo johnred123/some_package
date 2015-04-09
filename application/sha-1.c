@@ -17,6 +17,7 @@
 #include <stdio.h>  
 #include <stdlib.h>  
 #include <string.h>  
+#include <stdint.h>
   
 #undef BIG_ENDIAN_HOST  
 typedef unsigned int u32;  
@@ -40,7 +41,7 @@ static inline u32 rol( u32 x, int n)
 typedef struct {  
     u32  h0,h1,h2,h3,h4;  
     u32  nblocks;  
-    unsigned char buf[64];  
+    uint8_t buf[64];  
     int  count;  
 } SHA1_CONTEXT;  
   
@@ -62,7 +63,7 @@ void sha1_init( SHA1_CONTEXT *hd )
  * Transform the message X which consists of 16 32-bit-words  
  */  
 static void  
-transform( SHA1_CONTEXT *hd, unsigned char *data )  
+transform( SHA1_CONTEXT *hd, uint8_t *data )  
 {  
     u32 a,b,c,d,e,tm;  
     u32 x[16];  
@@ -79,8 +80,8 @@ transform( SHA1_CONTEXT *hd, unsigned char *data )
 #else  
     {
         int i;  
-        unsigned char *p2;  
-        for(i=0, p2=(unsigned char*)x; i < 16; i++, p2 += 4 ) {  
+        uint8_t *p2;  
+        for(i=0, p2=(uint8_t *)x; i < 16; i++, p2 += 4 ) {  
             p2[3] = *data++;  
             p2[2] = *data++;  
             p2[1] = *data++;  
@@ -203,7 +204,7 @@ transform( SHA1_CONTEXT *hd, unsigned char *data )
 /* Update the message digest with the contents  
  * of INBUF with length INLEN.  
  */  
-static void sha1_write( SHA1_CONTEXT *hd, unsigned char *inbuf, size_t inlen)  
+static void sha1_write( SHA1_CONTEXT *hd, uint8_t *inbuf, size_t inlen)  
 {  
     if( hd->count == 64 ) { /* flush the buffer */  
         transform( hd, hd->buf );  
@@ -242,7 +243,7 @@ static void sha1_write( SHA1_CONTEXT *hd, unsigned char *inbuf, size_t inlen)
 static void sha1_final(SHA1_CONTEXT *hd)  
 {  
     u32 t, msb, lsb;  
-    unsigned char *p;  
+    uint8_t *p;  
   
     sha1_write(hd, NULL, 0); /* flush */;  
   
@@ -298,7 +299,7 @@ static void sha1_final(SHA1_CONTEXT *hd)
 #undef X  
 }  
   
-void mk_sha1(unsigned char *Data, int length, unsigned char* sha1_val)
+void mk_sha1(uint8_t *Data, int length, uint8_t* sha1_val)
 {
     SHA1_CONTEXT ctx;
 
@@ -311,18 +312,18 @@ void mk_sha1(unsigned char *Data, int length, unsigned char* sha1_val)
 
 #define MAX_MESSAGE_LENGTH 128
 
-void hmac_sha1(unsigned char *key,int key_length,unsigned char *data,int data_length,unsigned char *digest)
+void hmac_sha1(uint8_t *key,int key_length,uint8_t *data,int data_length,uint8_t *digest)
 {  
     int b = 64; /* blocksize */  
-    unsigned char ipad = 0x36;  
+    uint8_t ipad = 0x36;  
   
-    unsigned char opad = 0x5c;  
+    uint8_t opad = 0x5c;  
   
-    unsigned char k0[64];  
-    unsigned char k0xorIpad[64];  
-    unsigned char step7data[64];  
-    unsigned char step5data[MAX_MESSAGE_LENGTH+128];  
-    unsigned char step8data[64+20];  
+    uint8_t k0[64];  
+    uint8_t k0xorIpad[64];  
+    uint8_t step7data[64];  
+    uint8_t step5data[MAX_MESSAGE_LENGTH+128];  
+    uint8_t step8data[64+20];  
     int i;  
   
     for (i=0; i<64; i++)  

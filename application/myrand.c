@@ -18,6 +18,7 @@
 
 #include <time.h>
 #include <stdlib.h>
+#include <stdint.h>
 
 /*
  * Prototype    : time_rand
@@ -30,7 +31,7 @@
 void time_rand(int *buf, int num)
 {
     if(buf == NULL)return ;
-    srand((unsigned int)time(NULL));
+    srand((uint32_t)time(NULL));
     for(; num >= 0; num --){
         ((int *)buf)[num] = rand();
     }

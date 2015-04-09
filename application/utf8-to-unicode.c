@@ -18,11 +18,12 @@
 ******************************************************************************/
 
 #include "utf8-to-unicode.h"
+#include <stdint.h>
 
 /*
  * Prototype    : Hex210
  * Description  : hexadecimal to decimal
- * Input        : unsigned char ucData  
+ * Input        : uint8_t ucData  
                   char *cpBuffer        
  * Output       : None
  * Return Value : void
@@ -34,7 +35,7 @@
  *    Author       : huangliang
  *    Modification : Created function
  */
-char Hex210(unsigned char ucData, char *cpBuffer)
+char Hex210(uint8_t ucData, char *cpBuffer)
 {
     if(NULL == cpBuffer)return -1;
 
@@ -45,7 +46,7 @@ char Hex210(unsigned char ucData, char *cpBuffer)
 /*
  * Prototype    : Hex2String
  * Description  : hexadecimal to string
- * Input        : unsigned char ucData  
+ * Input        : uint8_t ucData  
                   char *cpBuffer        
  * Output       : None
  * Return Value : 
@@ -57,7 +58,7 @@ char Hex210(unsigned char ucData, char *cpBuffer)
  *    Author       : huangliang
  *    Modification : Created function
  */
-char Hex2String( unsigned char ucData , char * cpBuffer )
+char Hex2String( uint8_t ucData , char * cpBuffer )
 {  
     if(NULL == cpBuffer)return -1;
 
@@ -72,14 +73,14 @@ char Hex2String( unsigned char ucData , char * cpBuffer )
  *				  char *cpBuffer ----- A buffer to save exchanged phone number
  *				  char *cpText ---- Text will be sended
  */
-void utf8_to_unicode( unsigned char *cpInput , int Len )
+void utf8_to_unicode( uint8_t *cpInput , int Len )
 {
     #define max_buffer_size 150
     int iBufPos = 0 , offset = 0 ;
-    unsigned char *savetmp = NULL;
-    unsigned char *tmp = NULL;
+    uint8_t *savetmp = NULL;
+    uint8_t *tmp = NULL;
 
-    tmp = (unsigned char *)mem_malloc(max_buffer_size);
+    tmp = (uint8_t *)mem_malloc(max_buffer_size);
     if(NULL == tmp){
         return;
     }

@@ -23,7 +23,7 @@
  * Prototype    : io_getArrayFormString
  * Description  : Get a array from string
  * Input        : const char *buf
- *                unsigned char lenArray
+ *                uint8_t lenArray
  * Output       : None
  * Return Value : int
  * Calls        : 
@@ -45,7 +45,7 @@ int io_getArrayFormString(const char *buf, int lenArray, void *array_buf)
             lenArray = strlen(buf)/2;
         }
         sscanf(buf+(lenArray*2), "%02x", &temp_val);
-        ((unsigned char*)array_buf)[lenArray] = (unsigned char)temp_val;
+        ((uint8_t*)array_buf)[lenArray] = (uint8_t)temp_val;
     }
     return 0;
 }
@@ -53,7 +53,7 @@ int io_getArrayFormString(const char *buf, int lenArray, void *array_buf)
 /*
  * Prototype    : io_printfarray
  * Description  : printf a array from string
- * Input        : const unsigned char *array
+ * Input        : const uint8_t *array
  *                int len
  * Output       : None
  * Return Value : int
@@ -65,7 +65,7 @@ int io_getArrayFormString(const char *buf, int lenArray, void *array_buf)
  *    Author       : john kazmath (johnred123@github)
  *    Modification : Created function
  */
-void io_printfarray(const unsigned char *array, int len)
+void io_printfarray(const uint8_t *array, int len)
 {
     int loop = 0;
     if(len <= 0)return;
@@ -83,7 +83,7 @@ void io_printfarray(const unsigned char *array, int len)
  * Prototype    : io_flipArray
  * Description  : flipped over a array
  * Input        : char *buf
- *                unsigned char lenArray
+ *                uint8_t lenArray
  * Output       : None
  * Return Value : int
  * Calls        : 
@@ -94,12 +94,12 @@ void io_printfarray(const unsigned char *array, int len)
  *    Author       : john kazmath (johnred123@github)
  *    Modification : Created function
  */
-int io_flipArray(unsigned char *buf, int lenArray)
+int io_flipArray(uint8_t *buf, int lenArray)
 {
     int loop = 0;
     if(buf == NULL)
         return -1;
-    unsigned char *tempbuf = calloc(1,lenArray);
+    uint8_t *tempbuf = calloc(1,lenArray);
     lenArray -= 1;
     if(tempbuf == NULL)
         return -1;
@@ -157,13 +157,13 @@ int io_getfilesize(FILE *fp)
 void *io_copyfiletoram(FILE *fp)
 {
     long length;
-    unsigned char *buffer;
+    uint8_t *buffer;
     size_t result;
     
     length = io_getfilesize(fp);
     rewind (fp);
 
-    buffer = (unsigned char *)calloc(1, length);
+    buffer = (uint8_t *)calloc(1, length);
     if (buffer == NULL)
     {
         return NULL;

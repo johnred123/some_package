@@ -24,6 +24,7 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 
 #include "../malloc/mem_malloc.h"
 
@@ -42,6 +43,6 @@
 #define CONVERTHEX_alpha(c)  (IS_AF(c) ? (c - 'A'+10) : (c - 'a'+10))
 #define CONVERTHEX(c)   (IS_09(c) ? (c - '0') : CONVERTHEX_alpha(c))
 
-void utf8_to_unicode ( unsigned char *cpInput , int Len );
+void utf8_to_unicode ( uint8_t *cpInput , int Len );
 
 #endif

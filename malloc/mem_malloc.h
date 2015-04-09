@@ -26,13 +26,13 @@
 typedef struct mem_ctl_block
 {
 #if (_MAX_SUPPORT_MEMPOOL_SIZE_ <= 128)
-    unsigned char ctl_block;
+    uint8_t ctl_block;
 #else
     
 #if (_MAX_SUPPORT_MEMPOOL_SIZE_ <= 1024*32)
-    unsigned short ctl_block;
+    uint16_t ctl_block;
 #else
-    unsigned int ctl_block;
+    uint32_t ctl_block;
 #endif
     
 #endif
@@ -43,19 +43,19 @@ typedef struct mem_ctl_block
 #define mem_ctl_block_addr(p) ((_mem_ctl_block_t*)p)
 #if (_MAX_SUPPORT_MEMPOOL_SIZE_ <= 128)
 
-#define mem_ctl_avilable(p) (unsigned char)(mem_ctl_block_addr(p)->ctl_block & (1 << 7))
-#define mem_ctl_size(p) (unsigned char)(mem_ctl_block_addr(p)->ctl_block & ~(1<< 7))
+#define mem_ctl_avilable(p) (uint8_t)(mem_ctl_block_addr(p)->ctl_block & (1 << 7))
+#define mem_ctl_size(p) (uint8_t)(mem_ctl_block_addr(p)->ctl_block & ~(1<< 7))
 
 #else
 #if (_MAX_SUPPORT_MEMPOOL_SIZE_ <= 1024*32)
 
-#define mem_ctl_avilable(p) (unsigned short)(mem_ctl_block_addr(p)->ctl_block & ( 1 << 15))
-#define mem_ctl_size(p) (unsigned short)(mem_ctl_block_addr(p)->ctl_block & ~(1<< 15))
+#define mem_ctl_avilable(p) (uint16_t)(mem_ctl_block_addr(p)->ctl_block & ( 1 << 15))
+#define mem_ctl_size(p) (uint16_t)(mem_ctl_block_addr(p)->ctl_block & ~(1<< 15))
 
 #else
 
-#define mem_ctl_avilable(p) (unsigned int)(mem_ctl_block_addr(p)->ctl_block & ( 1 << 31))
-#define mem_ctl_size(p) (unsigned int)(mem_ctl_block_addr(p)->ctl_block & ~(1<<31))
+#define mem_ctl_avilable(p) (uint32_t)(mem_ctl_block_addr(p)->ctl_block & ( 1 << 31))
+#define mem_ctl_size(p) (uint32_t)(mem_ctl_block_addr(p)->ctl_block & ~(1<<31))
 
 #endif
 #endif

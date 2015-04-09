@@ -16,7 +16,9 @@
 #ifndef _SHA_1_H_
 #define _SHA_1_H_
 
-void mk_sha1(unsigned char *Data, int length, unsigned char* sha1_val);
-void hmac_sha1(unsigned char *key,int key_length,unsigned char *data,int data_length,unsigned char *digest);
+#include <stdint.h>
+
+void mk_sha1(uint8_t *Data, int length, uint8_t* sha1_val);
+void hmac_sha1(uint8_t *key,int key_length,uint8_t *data,int data_length,uint8_t *digest);
 
 #endif /* _SHA_1_H_ */

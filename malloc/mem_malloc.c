@@ -10,6 +10,7 @@
  */
 
 #include <stdlib.h>
+#include <stdint.h>
 #include "mem_malloc.h"
 
 /*
@@ -18,12 +19,12 @@
 #ifndef _C51_COMPLIE_
 
 void *mem_available_addr = NULL;
-unsigned char real_mempool[_MAX_SUPPORT_MEMPOOL_SIZE_] = {0};
+uint8_t real_mempool[_MAX_SUPPORT_MEMPOOL_SIZE_] = {0};
 
 #else
 
 xdata void *mem_available_addr = NULL;
-xdata unsigned char real_mempool[_MAX_SUPPORT_MEMPOOL_SIZE_] = {0};
+xdata uint8_t real_mempool[_MAX_SUPPORT_MEMPOOL_SIZE_] = {0};
 
 #endif
 
@@ -44,23 +45,22 @@ code void mem_initpool( void *start_addr, int size ) compact
 
 #endif
 {
-    if( size <= 0 && NULL == start_addr )
-    {
+    if( size <= 0 && NULL == start_addr ){
         return ;
     }
     mem_available_addr = start_addr ;
 #if (_MAX_SUPPORT_MEMPOOL_SIZE_ <= 128)
-    mem_ctl_block_addr(mem_available_addr)->ctl_block = (unsigned char)size
+    mem_ctl_block_addr(mem_available_addr)->ctl_block = (uint8_t)size
         - mem_ctl_block_struct_offset;
     mem_ctl_block_addr(mem_available_addr)->ctl_block &= ~(1 << 7);
 #else
 
 #if (_MAX_SUPPORT_MEMPOOL_SIZE_ <= 1024*32)
-    mem_ctl_block_addr(mem_available_addr)->ctl_block = (unsigned short)size
+    mem_ctl_block_addr(mem_available_addr)->ctl_block = (uint16_t)size
         - mem_ctl_block_struct_offset;
     mem_ctl_block_addr(mem_available_addr)->ctl_block &= ~(1 << 15);
 #else
-    mem_ctl_block_addr(mem_available_addr)->ctl_block = (unsigned int)size
+    mem_ctl_block_addr(mem_available_addr)->ctl_block = (uint32_t)size
         - mem_ctl_block_struct_offset;
     mem_ctl_block_addr(mem_available_addr)->ctl_block &= ~(1 << 31);
 #endif
@@ -82,24 +82,19 @@ static code void *found_out_frist_availeable_memaddr(void *start_addr, int size)
 
 #endif
 {
-    if(NULL == start_addr)
-    {
+    if(NULL == start_addr){
         return NULL;
     }
-    if(mem_ctl_avilable(start_addr) > 0)
-    {
-        return found_out_frist_availeable_memaddr((unsigned char*)start_addr
+    if(mem_ctl_avilable(start_addr) > 0){
+        return found_out_frist_availeable_memaddr((uint8_t*)start_addr
                 + sizeof(_mem_ctl_block_t)
                 + mem_ctl_size(start_addr),
                 size);
-    }
-    else
-    {
+    }else{
         if(mem_ctl_size(start_addr) >= size)
             return start_addr;
-        else
-        {
-            return found_out_frist_availeable_memaddr((unsigned char*)start_addr
+        else{
+            return found_out_frist_availeable_memaddr((uint8_t*)start_addr
                     + mem_ctl_block_struct_offset
                     + mem_ctl_size(start_addr),
                     size);
@@ -121,30 +116,29 @@ code void *mem_malloc( int size ) compact
 
 #endif
 {
-    unsigned char *backup_addr = NULL;
-    unsigned char *available_addr = NULL;
+    uint8_t *backup_addr = NULL;
+    uint8_t *available_addr = NULL;
     int backup_size = 0;
-    if( size <= 0 && size >= _MAX_SUPPORT_MEMPOOL_SIZE_ )
-    {
+    if( size <= 0 && size >= _MAX_SUPPORT_MEMPOOL_SIZE_ ){
         return NULL;
     }
     if(NULL == mem_available_addr)
         mem_initpool(real_mempool, _MAX_SUPPORT_MEMPOOL_SIZE_);
 
-    available_addr = (unsigned char*)found_out_frist_availeable_memaddr(mem_available_addr, size);
+    available_addr = (uint8_t*)found_out_frist_availeable_memaddr(mem_available_addr, size);
 
     backup_size = (mem_ctl_block_addr(available_addr)->ctl_block);
 
 #if (_MAX_SUPPORT_MEMPOOL_SIZE_ <= 128)
-    mem_ctl_block_addr(available_addr)->ctl_block = (unsigned char)size;
+    mem_ctl_block_addr(available_addr)->ctl_block = (uint8_t)size;
     mem_ctl_block_addr(available_addr)->ctl_block |= (1 << 7);
 #else
 
 #if (_MAX_SUPPORT_MEMPOOL_SIZE_ <= 1024*32)
-    mem_ctl_block_addr(available_addr)->ctl_block = (unsigned short)size;
+    mem_ctl_block_addr(available_addr)->ctl_block = (uint16_t)size;
     mem_ctl_block_addr(available_addr)->ctl_block |= (1 << 15);
 #else
-    mem_ctl_block_addr(available_addr)->ctl_block = (unsigned int)size;
+    mem_ctl_block_addr(available_addr)->ctl_block = (uint32_t)size;
     mem_ctl_block_addr(available_addr)->ctl_block |= (1 << 31);
 #endif
 
@@ -154,15 +148,15 @@ code void *mem_malloc( int size ) compact
     backup_size -= size + mem_ctl_block_struct_offset;
 
 #if (_MAX_SUPPORT_MEMPOOL_SIZE_ <= 128)
-    mem_ctl_block_addr(backup_addr)->ctl_block = (unsigned char)backup_size;
+    mem_ctl_block_addr(backup_addr)->ctl_block = (uint8_t)backup_size;
     mem_ctl_block_addr(backup_addr)->ctl_block &= ~(1 << 7);
 #else
 
 #if (_MAX_SUPPORT_MEMPOOL_SIZE_ <= 1024*32)
-    mem_ctl_block_addr(backup_addr)->ctl_block = (unsigned short)backup_size;
+    mem_ctl_block_addr(backup_addr)->ctl_block = (uint16_t)backup_size;
     mem_ctl_block_addr(backup_addr)->ctl_block &= ~(1 << 15);
 #else
-    mem_ctl_block_addr(backup_addr)->ctl_block = (unsigned int)backup_size;
+    mem_ctl_block_addr(backup_addr)->ctl_block = (uint32_t)backup_size;
     mem_ctl_block_addr(backup_addr)->ctl_block &= ~(1 << 31);
 #endif
 
@@ -188,26 +182,22 @@ static code void crimple_memory(void *mem_struct_addr) compact reentrant
     void *next_mem_struct_addr = mem_struct_addr 
         + mem_ctl_size(mem_struct_addr)
         + mem_ctl_block_struct_offset;
-    if ( next_mem_struct_addr >= mem_available_addr_end )
+    if(next_mem_struct_addr >= mem_available_addr_end)
         return ;
-    if( mem_ctl_avilable(next_mem_struct_addr) > 0 )//used
-    {
+    if( mem_ctl_avilable(next_mem_struct_addr) > 0 ){
+        //used
         crimple_memory(next_mem_struct_addr);
-    }
-    else //unused
-    {
-        if( mem_ctl_avilable(next_mem_struct_addr) == 0 )
-        {
-            if( mem_ctl_avilable(mem_struct_addr) == 0 )
-            {
+    }else{
+        //unused
+        if( mem_ctl_avilable(next_mem_struct_addr) == 0 ){
+            if( mem_ctl_avilable(mem_struct_addr) == 0 ){
                 ((_mem_ctl_block_t*)mem_struct_addr)->ctl_block = 
                     mem_ctl_size(next_mem_struct_addr)
                     + mem_ctl_size(mem_struct_addr)
                     + mem_ctl_block_struct_offset;
                 ((_mem_ctl_block_t*)next_mem_struct_addr)->ctl_block = 0x00;
                 crimple_memory(mem_struct_addr);
-            }
-            else
+            }else
                 crimple_memory(next_mem_struct_addr);
         }
     }
@@ -227,8 +217,7 @@ code void mem_free( void *addr) compact
 
 #endif
 {
-    if(NULL == addr)
-    {
+    if(NULL == addr){
         return ;
     }
     if( NULL == mem_available_addr)
