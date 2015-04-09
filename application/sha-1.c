@@ -309,6 +309,17 @@ void mk_sha1(unsigned char *Data, int length, unsigned char* sha1_val)
     memcpy(sha1_val, ctx.buf, 20);
 }
 
+void mk_sha1_512(unsigned char *Data, int length, unsigned char* sha1_val)
+{
+    SHA1_CONTEXT ctx;
+
+    sha1_init (&ctx);
+    sha1_write (&ctx, Data, length);
+    sha1_final (&ctx);
+
+    memcpy(sha1_val, ctx.buf, sizeof(ctx.buf));
+}
+
 #define MAX_MESSAGE_LENGTH 128
 
 void hmac_sha1(unsigned char *key,int key_length,unsigned char *data,int data_length,unsigned char *digest)
