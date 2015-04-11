@@ -100,7 +100,7 @@ uint32_t crc32(uint32_t crc, const uint8_t *buf, uint32_t len)
  * Input        : uint8_t *buffer
  *                uint32_t size
  * Output       : None
- * Return Value : unsigned short int
+ * Return Value : uint16_t
  * Calls        : 
  * Called By    : 
  * 
