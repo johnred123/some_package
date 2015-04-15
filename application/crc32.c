@@ -111,8 +111,8 @@ uint32_t crc32(uint32_t crc, const uint8_t *buf, uint32_t len)
  */
 uint16_t get_crc16(uint8_t *buffer, uint32_t size, int init_flag)
 {
-    if(buffer == NULL) return 0;
     static uint32_t crc = 0;
+    if(buffer == NULL) return 0;
     if(init_flag == 1)
         crc = 0;
     crc = crc32(crc, buffer, size);
