@@ -21,7 +21,6 @@ objs += ./io/package_log.o
 objs += ./malloc/mem_malloc.o
 objs += ./thread/package_thread.o
 objs += ./socket/package_socket.o
-objs += ./data_struct/link_list/package_link_list.o
 
 all:dynamic_lib static_lib
 
@@ -42,7 +41,6 @@ dynamic_lib:${objs}
 ./application/sha-1.o : ./application/sha-1.h
 ./application/sha2.o : ./application/sha2.h
 ./thread/package_thread.o : ./thread/package_thread.h
-./data_struct/link_list/package_link_list.o : ./data_struct/link_list/package_link_list.h
 
 clean:
 	rm -f ${dynamic_lib_name} ${static_lib_name}
